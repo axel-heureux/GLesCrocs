@@ -1,33 +1,30 @@
 // src/components/Header.jsx
-import { Container, Navbar, Nav, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { Home, Users, Settings, QrCode } from 'react-icons/fa'
-import { FaHome, FaUsers, FaCog, FaQrcode } from 'react-icons/fa'
+import { Navbar, Container, Nav } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import { FaHome, FaUsers, FaCashRegister, FaCog } from 'react-icons/fa'
 
 function Header() {
   return (
-    <Navbar bg="glescrocs" variant="dark" expand="lg" className="shadow">
+    <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
-          <span className="fs-3 fw-bold">🐊 GLESCROCS</span>
-          <span className="ms-2 d-none d-md-block">Gestion de File d'Attente</span>
+        <Navbar.Brand href="/" className="fw-bold">
+          🐊 GLESCROCS
         </Navbar.Brand>
-        
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/" className="d-flex align-items-center">
-              <FaHome className="me-2" /> Accueil
-            </Nav.Link>
-            <Nav.Link as={Link} to="/queue" className="d-flex align-items-center">
-              <FaUsers className="me-2" /> File en direct
-            </Nav.Link>
-            <Nav.Link as={Link} to="/cashier" className="d-flex align-items-center">
-              <FaQrcode className="me-2" /> Caisse
-            </Nav.Link>
-            <Nav.Link as={Link} to="/admin" className="d-flex align-items-center">
-              <FaCog className="me-2" /> Admin
-            </Nav.Link>
+            <LinkContainer to="/">
+              <Nav.Link><FaHome className="me-2" /> Accueil</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/queue">
+              <Nav.Link><FaUsers className="me-2" /> File d'attente</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/cashier">
+              <Nav.Link><FaCashRegister className="me-2" /> Caisse</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/admin">
+              <Nav.Link><FaCog className="me-2" /> Admin</Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Container>
