@@ -21,6 +21,7 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  gap: 1rem;
 }
 
 .admin-brand {
@@ -43,6 +44,18 @@
   font-size: 0.8rem;
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-info {
+  color: var(--dark-blue);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
 .btn-outline {
   border: 1px solid #ccc;
   background: transparent;
@@ -50,6 +63,22 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+.btn-logout {
+  border: 1px solid var(--red);
+  background: transparent;
+  color: var(--red);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+  background: rgba(192, 57, 43, 0.1);
+}
+
 
 /* Grid */
 .admin-grid {

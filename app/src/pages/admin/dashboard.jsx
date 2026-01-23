@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import './dashboard.css';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import axios from 'axios';
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
   
   // États Données
   const [currentTicket, setCurrentTicket] = useState('-'); 
@@ -16,6 +18,11 @@ export default function Dashboard() {
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ id: null, name: '', description: '', price: '', stock: 0 });
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   useEffect(() => {
     fetchQueue();
@@ -118,7 +125,11 @@ export default function Dashboard() {
     <div className="admin-container">
       <nav className="admin-nav">
         <div className="admin-brand"><span className="logo-circle">GLC</span> ADMIN</div>
-        <button className="btn-outline" onClick={() => navigate('/')}>← Retour Client</button>
+        <div className="nav-actions">
+          <span className="user-info">👤 {user?.username}</span>
+          <button className="btn-outline" onClick={() => navigate('/')}>← Retour Client</button>
+          <button className="btn-logout" onClick={handleLogout}>🚪 Déconnexion</button>
+        </div>
       </nav>
 
       <main className="admin-grid">

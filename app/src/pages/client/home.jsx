@@ -2,17 +2,24 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
+import { useAuth } from '../../hooks/useAuth';
 import './home.css';
 
 const socket = io('http://localhost:3001');
 
 export default function Home() {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
   
   const [ticket, setTicket] = useState(null);
   const [menuItems, setMenuItems] = useState([]);   
   const [readyTicket, setReadyTicket] = useState(null); 
-  const [currentServing, setCurrentServing] = useState('-'); 
+  const [currentServing, setCurrentServing] = useState('-');
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   useEffect(() => {
     // Charger le menu
@@ -87,7 +94,15 @@ export default function Home() {
            <div className="logo-placeholder">GLC</div>
            <span className="brand-name">GLESCROCS CANTINE</span>
         </div>
-        <button className="btn-admin" onClick={() => navigate('/admin')}>🔐 Dashboard</button>
+        <div className="nav-right">
+          {user && (
+            <>
+              <span className="user-welcome">👤 {user.username}</span>
+              <button className="btn-logout-small" onClick={handleLogout}>🚪 Déconnexion</button>
+            </>
+          )}
+          <button className="btn-admin" onClick={() => navigate('/admin')}>🔐 Dashboard</button>
+        </div>
       </nav>
 
       <header className="hero-section">
