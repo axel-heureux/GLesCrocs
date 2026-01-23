@@ -70,12 +70,6 @@ app.post('/api/ticket', (req, res) => {
   });
 });
 
-// --- DÉMARRAGE DU SERVEUR ---
-const PORT = 3001;
-server.listen(PORT, () => {
-  console.log(`🚀 Serveur backend lancé sur http://localhost:${PORT}`);
-});
-
 // 3. Prendre un ticket (POST)
 app.post('/api/ticket', (req, res) => {
   // Génère un numéro aléatoire entre 1 et 1000
@@ -231,4 +225,54 @@ app.delete('/api/ticket/:number', (req, res) => {
     
     res.json({ success: true });
   });
+});
+
+// --- ENDPOINT DE LOGIN (Simple, vérifie la BD) ---
+app.post('/api/auth/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Validation basique
+  if (!username) {
+    return res.status(400).json({ message: "Nom d'utilisateur requis" });
+  }
+
+  // Rechercher l'utilisateur en BD
+  const sql = "SELECT id, username, password, role FROM users WHERE username = ?";
+  db.query(sql, [username], (err, results) => {
+    if (err) {
+      console.error('Erreur BD:', err);
+      return res.status(500).json({ message: "Erreur serveur" });
+    }
+
+    // Utilisateur non trouvé
+    if (results.length === 0) {
+      return res.status(401).json({ 
+        message: "Utilisateur introuvable" 
+      });
+    }
+
+    const user = results[0];
+    
+    // Vérification du mot de passe (comparaison simple pour test)
+    // En production, utiliser bcrypt.compare()
+    if (user.password !== password) {
+      return res.status(401).json({ 
+        message: "Mot de passe incorrect" 
+      });
+    }
+
+    // Login réussi
+    res.json({
+      id: user.id,
+      username: user.username,
+      role: user.role,  // null = client, number = admin
+      token: 'test_token_' + Date.now()
+    });
+  });
+});
+
+// --- DÉMARRAGE DU SERVEUR ---
+const PORT = 3001;
+server.listen(PORT, () => {
+  console.log(`🚀 Serveur backend lancé sur http://localhost:${PORT}`);
 });

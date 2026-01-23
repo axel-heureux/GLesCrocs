@@ -30,6 +30,7 @@ body {
   padding: 1rem 2rem;
   background: white;
   border-bottom: 2px solid #eee;
+  gap: 1rem;
 }
 
 .logo-container {
@@ -60,6 +61,33 @@ body {
   line-height: 1.1;
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-welcome {
+  color: var(--dark-blue);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.btn-logout-small {
+  background: transparent;
+  color: #c0392b;
+  border: 1px solid #c0392b;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-logout-small:hover {
+  background: rgba(192, 57, 43, 0.1);
+}
+
 .btn-admin {
   background-color: var(--dark-blue);
   color: white;
@@ -68,6 +96,11 @@ body {
   border-radius: 6px;
   font-weight: 500;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-admin:hover {
+  background-color: #1a2332;
 }
 
 .mobile-menu-icon {
